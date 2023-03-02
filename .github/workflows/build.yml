@@ -20,6 +20,9 @@ jobs:
       - name: Execute Gradle build
         run: ./gradlew build
 
+      - name: Testing
+        run: ls
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Login to Docker Hub
