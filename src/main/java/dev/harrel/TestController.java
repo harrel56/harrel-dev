@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     public TestController() {
-        System.out.println("hi");
+        System.out.println("cicd2");
     }
 
     @GetMapping("/test")
     public String test() {
-        return "CICD testing";
+        return "CICD testing 2";
     }
 }
