@@ -30,14 +30,12 @@ jobs:
           path: |
             build/
             Dockerfile
-  build-docker:
+  docker:
     runs-on: ubuntu-latest
     needs: build-gradle
     steps:
       - name: Setup tag name
-        run: |
-          export TAG_NAME=${GITHUB_REF_NAME}-$(date +"%Y%m%d-%H%M%S")
-          echo "::set-output name=tag-name::${TAG_NAME}"
+        run: echo "TAG_NAME=${GITHUB_REF_NAME}-$(date +"%Y%m%d-%H%M%S")" >> ${GITHUB_ENV}
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -54,8 +52,6 @@ jobs:
         with:
           name: build-output
 
-      - name: xxx
-        run: echo "$TAG_NAME"
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
@@ -63,8 +59,10 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_REGISTRY_HOST }}/harrel-site:${{ env.TAG_NAME }}
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build-docker
-    steps:
-      - run: echo "${{ needs.build-docker.outputs.tag-name }}"
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: sudo /home/harrel/harrel-site/deploy.sh ${{ env.TAG_NAME }}
