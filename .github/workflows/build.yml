@@ -65,4 +65,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          script: sudo /home/harrel/harrel-site/deploy.sh ${{ env.TAG_NAME }}
+          script: |
+            cd /home/harrel/harrel-site
+            sudo ./deploy.sh ${{ env.TAG_NAME }}
