@@ -52,6 +52,8 @@ jobs:
         with:
           name: build-output
 
+      - name: xxx
+        run: echo "$TAG_NAME"
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
