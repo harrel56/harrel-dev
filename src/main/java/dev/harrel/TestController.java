@@ -12,6 +12,6 @@ public class TestController {
 
     @GetMapping("/test")
     public String test() {
-        return "CICD testing 2";
+        return "This the final test";
     }
 }
