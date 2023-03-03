@@ -35,7 +35,7 @@ jobs:
     needs: build-gradle
     steps:
       - name: Setup tag name
-        run: echo "TAG_NAME=${GITHUB_REF_NAME}-$(date +"%Y%m%d-%H%M%S") >> ${GITHUB_ENV}
+        run: echo "TAG_NAME=${GITHUB_REF_NAME}-$(date +"%Y%m%d-%H%M%S")" >> ${GITHUB_ENV}
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v2
