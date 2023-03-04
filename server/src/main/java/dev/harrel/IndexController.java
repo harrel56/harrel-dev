@@ -6,11 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
-    public IndexController() {
-        System.out.println("IndexController");
-    }
-
-    @GetMapping("/test")
+    @GetMapping
     public String test() {
         return "index.html";
     }
