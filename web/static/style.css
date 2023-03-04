@@ -1,10 +1,17 @@
-
 body {
     margin: 0;
     background-color: beige;
 }
 
 .main-container {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-container {
+    flex-grow: 1;
     font-size: 48px;
     font-weight: bold;
 }
