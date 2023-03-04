@@ -1,0 +1,10 @@
+
+body {
+    margin: 0;
+    background-color: beige;
+}
+
+.main-container {
+    font-size: 48px;
+    font-weight: bold;
+}

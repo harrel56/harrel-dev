@@ -1,6 +1,9 @@
 HELP.md
 .gradle
 build/
+web/dist
+web/node_modules
+web/package-lock.json
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/

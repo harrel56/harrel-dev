@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.4'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'dev.harrel'
+version = '0.0.1'
+sourceCompatibility = '19'
+
+configurations {
+    web
+    output
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    web project(path: ':web', configuration: 'output')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+processResources {
+    inputs.files(configurations.web)
+    doLast {
+        copy {
+            from(configurations.web)
+            into("${sourceSets.main.output.resourcesDir}/static")
+        }
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+artifacts {
+    output(bootJar)
+}
