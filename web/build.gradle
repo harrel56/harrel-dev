@@ -13,7 +13,9 @@ tasks.register('clean') {
 tasks.register('build', NpmTask) {
     dependsOn(npmInstall)
     npmCommand = ['run', 'build']
-    inputs.files(fileTree('.').exclude('dist', 'node_modules', 'package-lock.json').findAll())
+    inputs.files(fileTree('.').matching {
+        exclude 'dist', 'node_modules', 'package-lock.json'
+    }.findAll())
     outputs.dir('dist')
 
     doFirst {

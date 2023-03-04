@@ -18,7 +18,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
+    }
     web project(path: ':web', configuration: 'output')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
