@@ -43,6 +43,8 @@ jobs:
         run: |
           echo "TAG_NAME=${GITHUB_REF_NAME}-$(date +"%Y%m%d-%H%M%S")" >> ${GITHUB_ENV}
           echo "${{ env.TAG_NAME }}" > tag-file
+
+      - name: Upload tag name
         uses: actions/upload-artifact@v3
         with:
           name: tag-file
