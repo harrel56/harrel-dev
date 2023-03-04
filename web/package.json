@@ -2,7 +2,8 @@
   "name": "harrel-web",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack --config webpack.prod.js",
+    "buildDev": "webpack"
   },
   "dependencies": {
     "react": "18.2.0",

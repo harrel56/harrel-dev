@@ -28,6 +28,7 @@ processResources {
     doLast {
         copy {
             from(configurations.web)
+            exclude('*.LICENSE.txt')
             into("${sourceSets.main.output.resourcesDir}/static")
         }
     }
