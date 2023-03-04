@@ -35,7 +35,7 @@ jobs:
           path: |
             build/
             Dockerfile
-  docker:
+  build-docker:
     runs-on: ubuntu-latest
     needs: build-gradle
     steps:
@@ -72,6 +72,28 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_REGISTRY_HOST }}/harrel-site:${{ env.TAG_NAME }}
+
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /home/harrel/harrel-site
+            sudo ./deploy.sh ${{ env.TAG_NAME }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-docker
+    steps:
+      - name: Download tag name
+        uses: actions/download-artifact@v3
+        with:
+          name: tag-file
+
+      - name: Setup tag name
+        run: echo "TAG_NAME=$(cat tag-file)" >> ${GITHUB_ENV}
 
       - name: Deploy
         uses: appleboy/ssh-action@v0.1.8
