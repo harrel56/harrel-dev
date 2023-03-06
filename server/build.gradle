@@ -1,7 +1,5 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.0.4'
-    id 'io.spring.dependency-management' version '1.1.0'
 }
 
 group = 'dev.harrel'
@@ -18,12 +16,12 @@ repositories {
 }
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-web') {
-        exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
-    }
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'ch.qos.logback:logback-classic:1.4.5'
+    implementation 'io.javalin:javalin:5.4.0'
+    implementation 'io.javalin:javalin-rendering:5.4.0'
+    implementation 'gg.jte:jte:2.3.0'
+
     web project(path: ':web', configuration: 'output')
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 processResources {
@@ -41,6 +39,15 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+tasks.register('fatJar', Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'dev.harrel.App'
+    }
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 artifacts {
-    output(bootJar)
+    output(fatJar)
 }
