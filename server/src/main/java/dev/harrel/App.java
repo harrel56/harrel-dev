@@ -23,7 +23,7 @@ public class App {
         TemplateEngine templateEngine = TemplateEngine.create(new ResourceCodeResolver("templates"), ContentType.Html);
         JavalinJte.init(templateEngine);
 
-        String version = System.getProperty("TAG", "unspecified");
+        String version = System.getenv().getOrDefault("TAG", "unspecified");
         Consumer<JavalinConfig> configConsumer = config -> config.staticFiles.add("/static");
         Javalin.create(configConsumer)
                 .get("/", ctx -> ctx.render("index.jte", Map.of("version", version)))
