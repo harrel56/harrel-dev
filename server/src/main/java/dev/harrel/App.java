@@ -9,6 +9,7 @@ import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.rendering.template.JavalinJte;
 
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -20,7 +21,7 @@ public class App {
         Logger root = (Logger) org.slf4j.LoggerFactory.getLogger(ROOT_LOGGER_NAME);
         root.setLevel(Level.INFO);
 
-        TemplateEngine templateEngine = TemplateEngine.create(new ResourceCodeResolver("templates"), ContentType.Html);
+        TemplateEngine templateEngine = TemplateEngine.create(new ResourceCodeResolver("templates"), Path.of("jte-generated"), ContentType.Html);
         JavalinJte.init(templateEngine);
 
         String version = System.getenv().getOrDefault("TAG", "unspecified");

@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="version" content="${version}">
     <title>Harrel.dev</title>
+    <link rel="favicon" href="favicon.ico"/>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>

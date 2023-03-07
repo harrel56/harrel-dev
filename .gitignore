@@ -1,7 +1,7 @@
 HELP.md
 .gradle
 build/
-jte-classes/
+jte-generated/
 web/dist
 web/node_modules
 web/package-lock.json
