@@ -30,7 +30,7 @@ processResources {
         copy {
             from(configurations.web)
             exclude('*.LICENSE.txt')
-            into("${sourceSets.main.output.resourcesDir}/static")
+            into("${sourceSets.main.output.resourcesDir}/web/static")
         }
     }
 }

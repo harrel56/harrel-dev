@@ -25,9 +25,12 @@ public class App {
         JavalinJte.init(templateEngine);
 
         String version = System.getenv().getOrDefault("TAG", "unspecified");
-        Consumer<JavalinConfig> configConsumer = config -> config.staticFiles.add("/static");
-        Javalin.create(configConsumer)
-                .get("/", ctx -> ctx.render("index.jte", Map.of("version", version)))
-                .start(8080);
+        Consumer<JavalinConfig> configConsumer = config -> {
+            config.staticFiles.add("/web");
+            config.spaRoot.addHandler("/", ctx -> ctx.render("index.jte", Map.of("version", version)));
+        };
+        try (var server = Javalin.create(configConsumer)) {
+            server.start(8080);
+        }
     }
 }
