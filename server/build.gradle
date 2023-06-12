@@ -16,10 +16,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'ch.qos.logback:logback-classic:1.4.5'
-    implementation 'io.javalin:javalin:5.4.0'
-    implementation 'io.javalin:javalin-rendering:5.4.0'
-    implementation 'gg.jte:jte:2.3.0'
+    implementation 'ch.qos.logback:logback-classic:1.4.7'
+    implementation 'io.javalin:javalin:5.5.0'
+    implementation 'io.javalin:javalin-rendering:5.5.0'
+    implementation 'gg.jte:jte:2.3.2'
 
     web project(path: ':web', configuration: 'output')
 }

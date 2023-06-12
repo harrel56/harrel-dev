@@ -26,11 +26,16 @@ public class App {
 
         String version = System.getenv().getOrDefault("TAG", "unspecified");
         Consumer<JavalinConfig> configConsumer = config -> {
-            config.staticFiles.add("/web");
             config.spaRoot.addHandler("/", ctx -> ctx.render("index.jte", Map.of("version", version)));
+            config.staticFiles.add(staticFiles -> {
+                staticFiles.directory = "/web";
+                staticFiles.precompress = true;
+                staticFiles.headers = Map.of("Cache-Control", "max-age=3600");
+            });
         };
-        try (var server = Javalin.create(configConsumer)) {
-            server.start(8080);
-        }
+
+        Javalin.create(configConsumer)
+                .post("/api/json-validate", new ValidationHandler())
+                .start(8080);
     }
 }
