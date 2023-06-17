@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import {json} from '@codemirror/lang-json';
-import {useFetch} from "use-http";
+import {CachePolicies, useFetch} from "use-http";
 import {Button} from "./Button";
 
 export const JsonSchemaPlayground = () => {
@@ -9,7 +9,7 @@ export const JsonSchemaPlayground = () => {
     const [instance, setInstance] = useState('{}')
     const [response, setResponse] = useState<string>()
 
-    const {post, loading, error} = useFetch<any>('/api/json-validate')
+    const {post, loading, error} = useFetch<any>('/api/json-validate', {cachePolicy: CachePolicies.NO_CACHE})
 
     const onClick = async () => {
         try {
@@ -18,7 +18,7 @@ export const JsonSchemaPlayground = () => {
 
             const s = await post({schema: schemaJson, instance: instanceJson});
             console.log(s)
-            setResponse(JSON.stringify(s))
+            setResponse(JSON.stringify(s, null, 2))
         } catch (e) {
             console.error(e)
         }
@@ -47,9 +47,16 @@ export const JsonSchemaPlayground = () => {
                     />
                 </div>
             </div>
-            <Button onClick={onClick} className='flex-start'>Validate</Button>
-            <p>{response}</p>
-            <p>{error + ''}</p>
+            <Button disabled={loading} onClick={onClick} className='flex-start'>Validate</Button>
+            <div className='editor-container'>
+                <h2>Output</h2>
+                <ReactCodeMirror
+                    extensions={[json()]}
+                    height='500px'
+                    value={response}
+                    readOnly={true}
+                />
+            </div>
         </>
     )
 }

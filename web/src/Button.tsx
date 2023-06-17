@@ -1,16 +1,17 @@
-import React, {MouseEventHandler, PropsWithChildren} from "react";
+import React, {PropsWithChildren} from "react";
 
 interface Props {
     className?: string
     type?: 'primary' | 'secondary' | 'white'
-    onClick?: MouseEventHandler<any>
+
+    [key: string]: unknown
 }
 
-export const Button = ({children, className, type, onClick}: PropsWithChildren<Props>) => {
+export const Button = ({children, className, type, ...other}: PropsWithChildren<Props>) => {
     className = className ?? ''
     type = type ?? 'primary'
     return (
-        <button className={`button ${type} ${className}`} onClick={onClick}>
+        <button className={`button ${type} ${className}`} {...other}>
             {children}
         </button>
     )

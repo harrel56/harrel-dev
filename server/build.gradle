@@ -20,6 +20,8 @@ dependencies {
     implementation 'io.javalin:javalin:5.5.0'
     implementation 'io.javalin:javalin-rendering:5.5.0'
     implementation 'gg.jte:jte:2.3.2'
+    implementation 'dev.harrel:json-schema:1.1.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 
     web project(path: ':web', configuration: 'output')
 }
