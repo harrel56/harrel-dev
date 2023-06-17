@@ -8,7 +8,7 @@
     <meta name="version" content="${version}">
     <title>Harrel.dev</title>
     <link rel="favicon" href="/static/favicon.ico"/>
-    <link rel="stylesheet" href="/static/spectre.min.css"/>
+    <link rel="stylesheet" href="/static/normalize.css"/>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>

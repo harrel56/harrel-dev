@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOMClient from 'react-dom/client';
-import {SideNav} from "./SideNav";
+import {SideBar} from "./SideBar";
 import {Content} from "./Content";
+import {TopBar} from "./TopBar";
 
 const version = document.querySelector('meta[name="version"]')?.getAttribute('content')!
 
 const App = () => {
     return (
         <div className='main-container'>
-            <SideNav version={version}/>
-            <Content/>
+            <TopBar/>
+            <div className='center-container'>
+                <SideBar version={version}/>
+                <Content/>
+            </div>
         </div>)
 }
 

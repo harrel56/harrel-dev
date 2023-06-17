@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import {json} from '@codemirror/lang-json';
 import {useFetch} from "use-http";
+import {Button} from "./Button";
 
 export const JsonSchemaPlayground = () => {
     const [schema, setSchema] = useState('{}')
@@ -25,7 +26,7 @@ export const JsonSchemaPlayground = () => {
 
     return (
         <>
-            <h1>json-schema</h1>
+            <h1>JSON Schema</h1>
             <div className='editors-wrapper'>
                 <div className='editor-container'>
                     <h2>Schema</h2>
@@ -46,7 +47,7 @@ export const JsonSchemaPlayground = () => {
                     />
                 </div>
             </div>
-            <button onClick={onClick}>click</button>
+            <Button onClick={onClick} className='flex-start'>Validate</Button>
             <p>{response}</p>
             <p>{error + ''}</p>
         </>
