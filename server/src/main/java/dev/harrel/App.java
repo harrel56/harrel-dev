@@ -25,9 +25,17 @@ public class App {
         JavalinJte.init(templateEngine);
 
         String version = System.getenv().getOrDefault("TAG", "unspecified");
-        Consumer<JavalinConfig> configConsumer = config -> config.staticFiles.add("/static");
+        Consumer<JavalinConfig> configConsumer = config -> {
+            config.spaRoot.addHandler("/", ctx -> ctx.render("index.jte", Map.of("version", version)));
+            config.staticFiles.add(staticFiles -> {
+                staticFiles.directory = "/web";
+                staticFiles.precompress = true;
+                staticFiles.headers = Map.of("Cache-Control", "max-age=3600");
+            });
+        };
+
         Javalin.create(configConsumer)
-                .get("/", ctx -> ctx.render("index.jte", Map.of("version", version)))
+                .post("/api/json-validate", new ValidationHandler())
                 .start(8080);
     }
 }
