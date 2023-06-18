@@ -11,7 +11,8 @@
     "wouter": "2.11.0",
     "use-http": "1.0.28",
     "@uiw/react-codemirror": "4.21.3",
-    "@codemirror/lang-json": "6.0.1"
+    "@codemirror/lang-json": "6.0.1",
+    "react-icons": "4.9.0"
   },
   "devDependencies": {
     "typescript": "5.1.3",
