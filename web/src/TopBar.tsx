@@ -13,6 +13,9 @@ export const TopBar = ({setMenuVisible}: {setMenuVisible:  React.Dispatch<React.
                 </Link>
             </div>
             <div className='buttons'>
+                <a href='https://github.com/harrel56/harrel-dev'>
+                    <Button type='inverted'>Source</Button>
+                </a>
                 <a href='https://github.com/harrel56'>
                     <Button type='white'>GitHub</Button>
                 </a>

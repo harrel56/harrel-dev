@@ -2,7 +2,7 @@ import React, {PropsWithChildren} from "react";
 
 interface Props {
     className?: string
-    type?: 'primary' | 'secondary' | 'white'
+    type?: 'primary' | 'secondary' | 'white' | 'inverted'
 
     [key: string]: unknown
 }

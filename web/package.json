@@ -12,6 +12,7 @@
     "use-http": "1.0.28",
     "@uiw/react-codemirror": "4.21.3",
     "@codemirror/lang-json": "6.0.1",
+    "@codemirror/lint": "6.2.2",
     "react-icons": "4.9.0"
   },
   "devDependencies": {

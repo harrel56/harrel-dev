@@ -8,13 +8,13 @@
 
 html {
     line-height: 1.5;
-    font-family: "Inter", Roboto, "Helvetica Neue", sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 400;
     color: var(--font-color);
 }
 
 h1, h2, h3 {
-    font-family: "Inter Extra Bold", Roboto, "Helvetica Neue", sans-serif;
+    font-weight: 900;
 }
 
 h1 {
@@ -60,7 +60,7 @@ h2 {
 
 .logo {
     font-size: 32px;
-    font-weight: 1000;
+    font-weight: 900;
     letter-spacing: -1.5px;
     cursor: pointer;
 }
@@ -162,6 +162,11 @@ h2 {
     text-align: center;
 }
 
+.buttons {
+    display: flex;
+    gap: 8px;
+}
+
 .button {
     border-radius: 2px;
     padding: 8px;
@@ -169,7 +174,6 @@ h2 {
     font-size: 14px;
     border: 0;
     appearance: none;
-    background: var(--faded-color);
     color: var(--font-color);
     cursor: pointer;
 }
@@ -184,10 +188,23 @@ h2 {
     color: var(--font-color);
 }
 
+.button.inverted {
+    background: var(--bg-color);
+}
+
+.button.inverted:hover {
+    background: var(--faded-color);
+}
+
 .cm-gutters {
     background: var(--faded-color) !important;
 }
 
 .flex-start {
     align-self: flex-start;
+}
+
+.error-message {
+    font-weight: 700;
+    color: var(--primary-color)
 }
