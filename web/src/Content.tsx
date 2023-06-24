@@ -1,4 +1,3 @@
-import React from "react";
 import {Route} from "wouter";
 import {JsonSchemaPlayground} from "./JsonSchemaPlayground";
 

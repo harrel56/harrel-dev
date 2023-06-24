@@ -1,5 +1,4 @@
 import {Link, useRoute} from "wouter";
-import React from "react";
 
 export const MenuLink = ({href, name}: { href: string, name: string }) => {
     const [isActive] = useRoute(href)

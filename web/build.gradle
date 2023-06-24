@@ -17,13 +17,6 @@ tasks.register('build', NpmTask) {
         exclude 'dist', 'node_modules', 'package-lock.json'
     }.findAll())
     outputs.dir('dist')
-
-    doFirst {
-        copy {
-            from('static')
-            into('dist')
-        }
-    }
 }
 
 artifacts {

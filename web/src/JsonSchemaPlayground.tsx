@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import {useMemo, useState} from 'react';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import {json, jsonParseLinter} from '@codemirror/lang-json';
 import {CachePolicies, useFetch} from "use-http";

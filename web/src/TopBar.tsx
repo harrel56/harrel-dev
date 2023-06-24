@@ -1,4 +1,3 @@
-import React from "react";
 import {Button} from "./Button";
 import {Link} from "wouter";
 import {SlMenu} from 'react-icons/sl'

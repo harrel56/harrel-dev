@@ -1,7 +1,9 @@
-import React from "react";
 import {MenuLink} from "./MenuLink";
+import {useFetch} from "use-http";
 
-export const SideBar = ({version, visible}: { version: string, visible: boolean }) => {
+export const SideBar = ({visible}: { visible: boolean }) => {
+    const {data} = useFetch<any>('/api/version')
+
     return (
         <nav className={'nav-container ' + (visible ? 'visible' : '')}>
             <ul className='nav'>
@@ -10,7 +12,7 @@ export const SideBar = ({version, visible}: { version: string, visible: boolean 
             </ul>
 
             <footer className='footer-container'>
-                <p>{version}</p>
+                {data && <p>{data}</p>}
             </footer>
         </nav>
     )
