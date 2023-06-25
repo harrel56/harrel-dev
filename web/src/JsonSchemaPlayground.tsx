@@ -1,9 +1,10 @@
-import {useMemo, useState} from 'react';
-import ReactCodeMirror from '@uiw/react-codemirror';
+import {lazy, useMemo, useState} from 'react';
 import {json, jsonParseLinter} from '@codemirror/lang-json';
 import {CachePolicies, useFetch} from "use-http";
 import {Button} from "./Button";
 import {linter, lintGutter} from "@codemirror/lint";
+
+const ReactCodeMirror = lazy(() => import('@uiw/react-codemirror'))
 
 export const JsonSchemaPlayground = () => {
     const [schema, setSchema] = useState('{}')

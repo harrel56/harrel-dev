@@ -2,7 +2,7 @@ import {MenuLink} from "./MenuLink";
 import {useFetch} from "use-http";
 
 export const SideBar = ({visible}: { visible: boolean }) => {
-    const {data} = useFetch<any>('/api/version')
+    const {data} = useFetch<any>('/api/version', {}, [])
 
     return (
         <nav className={'nav-container ' + (visible ? 'visible' : '')}>
