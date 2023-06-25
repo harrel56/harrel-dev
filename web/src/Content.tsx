@@ -1,8 +1,8 @@
-import {Route} from "wouter";
-import {JsonSchemaPlayground} from "./JsonSchemaPlayground";
-import {Suspense} from "react";
-import {LoadingSpinner} from "./util/LoadingSpinner.tsx";
+import {Route} from 'wouter'
+import {lazy, Suspense} from 'react'
+import {LoadingSpinner} from './util/LoadingSpinner.tsx'
 
+const JsonSchemaPlayground = lazy(() => import('./JsonSchemaPlayground'))
 
 export const Content = () => {
     return (

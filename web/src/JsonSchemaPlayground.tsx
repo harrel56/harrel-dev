@@ -1,12 +1,11 @@
-import {lazy, useMemo, useState} from 'react';
-import {json, jsonParseLinter} from '@codemirror/lang-json';
-import {CachePolicies, useFetch} from "use-http";
-import {Button} from "./Button";
-import {linter, lintGutter} from "@codemirror/lint";
+import {useMemo, useState} from 'react'
+import {json, jsonParseLinter} from '@codemirror/lang-json'
+import {CachePolicies, useFetch} from 'use-http'
+import {Button} from './Button'
+import {linter, lintGutter} from '@codemirror/lint'
+import ReactCodeMirror from '@uiw/react-codemirror'
 
-const ReactCodeMirror = lazy(() => import('@uiw/react-codemirror'))
-
-export const JsonSchemaPlayground = () => {
+const JsonSchemaPlayground = () => {
     const [schema, setSchema] = useState('{}')
     const [instance, setInstance] = useState('{}')
     const [response, setResponse] = useState<string>()
@@ -17,7 +16,7 @@ export const JsonSchemaPlayground = () => {
     const onClick = async () => {
         let schemaJson, instanceJson
         try {
-            schemaJson = JSON.parse(schema);
+            schemaJson = JSON.parse(schema)
             setParseError(undefined)
         } catch (e) {
             setParseError('Schema is not a valid JSON')
@@ -26,14 +25,14 @@ export const JsonSchemaPlayground = () => {
             return
         }
         try {
-            instanceJson = JSON.parse(instance);
+            instanceJson = JSON.parse(instance)
             setParseError(undefined)
         } catch (e) {
             setParseError('Instance is not a valid JSON')
             setResponse('')
             return
         }
-        const result = await post({schema: schemaJson, instance: instanceJson});
+        const result = await post({schema: schemaJson, instance: instanceJson})
         setResponse(JSON.stringify(result, null, 2))
     }
 
@@ -77,3 +76,5 @@ export const JsonSchemaPlayground = () => {
         </>
     )
 }
+
+export default JsonSchemaPlayground
