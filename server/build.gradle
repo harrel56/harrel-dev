@@ -24,20 +24,26 @@ dependencies {
     web project(path: ':web', configuration: 'output')
 }
 
+processResources {
+    inputs.files(configurations.web)
+    doLast {
+        copy {
+            from(configurations.web)
+            into("${sourceSets.main.output.resourcesDir}/web")
+        }
+    }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
 
 tasks.register('fatJar', Jar) {
-    inputs.files(configurations.web)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes 'Main-Class': 'dev.harrel.App'
     }
     from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-    from(configurations.web) {
-        it.into('web')
-    }
     with jar
 }
 

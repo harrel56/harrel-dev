@@ -23,7 +23,11 @@ public class App {
                 staticFiles.directory = "/web/assets";
                 staticFiles.hostedPath = "/assets";
                 staticFiles.precompress = true;
-                staticFiles.headers = Map.of("Cache-Control", "max-age=3600");
+                staticFiles.headers = Map.of("Cache-Control", "max-age=86400");
+            });
+            config.staticFiles.add(staticFiles -> {
+                staticFiles.directory = "/robots";
+                staticFiles.hostedPath = "/";
             });
         };
 
