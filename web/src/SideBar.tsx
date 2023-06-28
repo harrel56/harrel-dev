@@ -11,7 +11,7 @@ export const SideBar = ({visible}: { visible: boolean }) => {
                 <RouterLink to='/'>Home</RouterLink>
               </li>
               <li className='nav-item'>
-                <RouterLink to='/projects/json-schema'>JSON Schema</RouterLink>
+                <RouterLink to='/json-schema'>JSON Schema</RouterLink>
               </li>
             </ul>
 
