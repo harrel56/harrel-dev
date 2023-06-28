@@ -4,6 +4,7 @@
     --highlight-color: #f0dfdb;
     --primary-color: #e63c1a;
     --faded-color: #f3eeed;
+    --success-color: #3b8b37;
 }
 
 html {
@@ -170,6 +171,7 @@ a.router-link {
 
 .buttons {
     display: flex;
+    align-items: center;
     gap: 8px;
 }
 
@@ -206,11 +208,14 @@ a.router-link {
     background: var(--faded-color) !important;
 }
 
-.flex-start {
-    align-self: flex-start;
-}
-
 .error-message {
+    margin: 0;
     font-weight: 700;
     color: var(--primary-color)
+}
+
+.success-message {
+    margin: 0;
+    font-weight: 700;
+    color: var(--success-color)
 }
