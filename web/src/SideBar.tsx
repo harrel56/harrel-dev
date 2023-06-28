@@ -1,4 +1,4 @@
-import {MenuLink} from "./MenuLink";
+import {RouterLink} from "./RouterLink.tsx";
 import {useFetch} from "use-http";
 
 export const SideBar = ({visible}: { visible: boolean }) => {
@@ -7,8 +7,12 @@ export const SideBar = ({visible}: { visible: boolean }) => {
     return (
         <nav className={'nav-container ' + (visible ? 'visible' : '')}>
             <ul className='nav'>
-                <MenuLink href='/' name='Home'/>
-                <MenuLink href='/projects/json-schema' name='JSON Schema'/>
+              <li className='nav-item'>
+                <RouterLink to='/'>Home</RouterLink>
+              </li>
+              <li className='nav-item'>
+                <RouterLink to='/projects/json-schema'>JSON Schema</RouterLink>
+              </li>
             </ul>
 
             <footer className='footer-container'>

@@ -101,6 +101,11 @@ h2 {
     }
 }
 
+a.router-link {
+    text-decoration: none;
+    color: var(--font-color)
+}
+
 .nav {
     font-size: 14px;
     font-weight: 700;
@@ -109,20 +114,21 @@ h2 {
     list-style: none;
 }
 
-.nav-item {
-    border-radius: 2px;
+.nav-item a {
+    display: block;
+    text-decoration: none;
     padding: 8px;
     white-space: nowrap;
-    cursor: pointer;
+    border-radius: 2px;
 
     transition: background .2s ease-out;
 }
 
-.nav-item:hover {
+.nav-item a:hover {
     background: var(--highlight-color);
 }
 
-.nav-item.active {
+.nav-item a.active {
     background: var(--highlight-color);
     color: var(--primary-color);
 }

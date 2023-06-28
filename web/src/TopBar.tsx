@@ -1,23 +1,24 @@
-import {Button} from "./Button";
-import {Link} from "wouter";
+import {Button} from './Button'
 import {SlMenu} from 'react-icons/sl'
+import {RouterLink} from './RouterLink.tsx'
+import {Dispatch, SetStateAction} from 'react'
 
-export const TopBar = ({setMenuVisible}: {setMenuVisible:  React.Dispatch<React.SetStateAction<boolean>>}) => {
-    return (
-        <header className='top-bar'>
-            <div className='top-header'>
-                <SlMenu className='menu-icon' onClick={() => setMenuVisible(visible => !visible)}/>
-                <Link href='/'>
-                    <span className='logo'>Harrel.dev</span>
-                </Link>
-            </div>
-            <div className='buttons'>
-                <a href='https://github.com/harrel56/harrel-dev'>
-                    <Button type='inverted'>Source</Button>
-                </a>
-                <a href='https://github.com/harrel56'>
-                    <Button type='white'>GitHub</Button>
-                </a>
-            </div>
-        </header>)
+export const TopBar = ({setMenuVisible}: { setMenuVisible: Dispatch<SetStateAction<boolean>> }) => {
+  return (
+    <header className='top-bar'>
+      <div className='top-header'>
+        <SlMenu className='menu-icon' onClick={() => setMenuVisible(visible => !visible)}/>
+        <RouterLink to='/'>
+          <span className='logo'>Harrel.dev</span>
+        </RouterLink>
+      </div>
+      <div className='buttons'>
+        <a href='https://github.com/harrel56/harrel-dev'>
+          <Button type='inverted'>Source</Button>
+        </a>
+        <a href='https://github.com/harrel56'>
+          <Button type='white'>GitHub</Button>
+        </a>
+      </div>
+    </header>)
 }
