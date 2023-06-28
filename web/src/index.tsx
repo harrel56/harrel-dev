@@ -6,10 +6,11 @@ import {App} from './App.tsx'
 
 const JsonSchemaPlayground = lazy(() => import('./JsonSchemaPlayground.tsx'))
 
-const setPageInfo = (title: string, description: string, tags: string[]): any => {
+const setPageInfo = (title: string, description: string, tags: string[]): null => {
   document.title = title
   document.querySelector('meta[name="description"]')!.setAttribute('content', description)
   document.querySelector('meta[name="keywords"]')!.setAttribute('content', tags.join(','))
+  return null
 }
 
 const router = createBrowserRouter([
