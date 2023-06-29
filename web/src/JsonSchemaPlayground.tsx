@@ -4,6 +4,7 @@ import {CachePolicies, useFetch} from 'use-http'
 import {Button} from './Button'
 import {linter, lintGutter} from '@codemirror/lint'
 import ReactCodeMirror from '@uiw/react-codemirror'
+import {useDebounce, useLocalStorage} from 'react-use'
 
 interface Response {
   valid: boolean
@@ -11,13 +12,22 @@ interface Response {
   errorMessage?: any
 }
 
+const DEFAULT_SCHEMA = `{
+  "$ref": "https://json-schema.org/draft/2020-12/schema"
+}`
+const DEFAULT_INSTANCE = '{}'
+
 const JsonSchemaPlayground = () => {
-  const [schema, setSchema] = useState('{}')
-  const [instance, setInstance] = useState('{}')
+  const [schemaStorage, setSchemaStorage] = useLocalStorage('schema', DEFAULT_SCHEMA)
+  const [instanceStorage, setInstanceStorage] = useLocalStorage('instance', DEFAULT_INSTANCE)
+  const [schema, setSchema] = useState(schemaStorage!)
+  const [instance, setInstance] = useState(instanceStorage!)
   const [response, setResponse] = useState<Response>()
   const [parseError, setParseError] = useState<string>()
 
   const {post, loading, error} = useFetch<any>('/api/json-validate', {cachePolicy: CachePolicies.NO_CACHE})
+  useDebounce(() => setSchemaStorage(schema), 2000, [schema])
+  useDebounce(() => setInstanceStorage(instance), 2000, [instance])
 
   const onClick = async () => {
     let schemaJson, instanceJson
@@ -47,7 +57,8 @@ const JsonSchemaPlayground = () => {
   if (errorMessage) {
     validationResponse = <p className='error-message'>{errorMessage}</p>
   } else if (response) {
-    validationResponse = response.valid ? <p className='success-message'>Validation successful</p> : <p className='error-message'>Validation failed</p>
+    validationResponse = response.valid ? <p className='success-message'>Validation successful</p> :
+      <p className='error-message'>Validation failed</p>
   }
 
   const output = response ? JSON.stringify(response.errors, null, 2) : ''
