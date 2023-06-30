@@ -204,7 +204,7 @@ a.router-link {
     color: var(--success-color)
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
     .nav-container {
         position: fixed;
         transform: translateX(-100%);
@@ -222,5 +222,9 @@ a.router-link {
     .content-container {
         padding-left: 16px;
         padding-right: 16px;
+    }
+
+    .top-bar {
+        padding: 0 16px;
     }
 }
