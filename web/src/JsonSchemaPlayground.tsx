@@ -3,8 +3,9 @@ import {json, jsonParseLinter} from '@codemirror/lang-json'
 import {CachePolicies, useFetch} from 'use-http'
 import {Button} from './Button'
 import {linter, lintGutter} from '@codemirror/lint'
-import ReactCodeMirror from '@uiw/react-codemirror'
+import {useCodeMirror} from '@uiw/react-codemirror'
 import {useDebounce, useLocalStorage} from 'react-use'
+import {EditorView} from '@codemirror/view'
 
 interface Response {
   valid: boolean
@@ -17,6 +18,12 @@ const DEFAULT_SCHEMA = `{
 }`
 const DEFAULT_INSTANCE = '{}'
 
+const inputExtensions = [json(), EditorView.lineWrapping, lintGutter(), linter(jsonParseLinter(), {
+  delay: 300,
+  markerFilter: () => []
+})]
+const outputExtensions = [json(), EditorView.lineWrapping]
+
 const JsonSchemaPlayground = () => {
   const [schemaStorage, setSchemaStorage] = useLocalStorage('schema', DEFAULT_SCHEMA)
   const [instanceStorage, setInstanceStorage] = useLocalStorage('instance', DEFAULT_INSTANCE)
@@ -26,8 +33,8 @@ const JsonSchemaPlayground = () => {
   const [parseError, setParseError] = useState<string>()
 
   const {post, loading, error} = useFetch<any>('/api/json-validate', {cachePolicy: CachePolicies.NO_CACHE})
-  useDebounce(() => setSchemaStorage(schema), 2000, [schema])
-  useDebounce(() => setInstanceStorage(instance), 2000, [instance])
+  useDebounce(() => setSchemaStorage(schema), 1000, [schema])
+  useDebounce(() => setInstanceStorage(instance), 1000, [instance])
 
   const onClick = async () => {
     let schemaJson, instanceJson
@@ -51,7 +58,6 @@ const JsonSchemaPlayground = () => {
     setResponse(result)
   }
 
-  const extensions = useMemo(() => [json(), lintGutter(), linter(jsonParseLinter(), {delay: 300})], [])
   const errorMessage = parseError ?? response?.errorMessage ?? error?.message
   let validationResponse = null
   if (errorMessage) {
@@ -62,6 +68,24 @@ const JsonSchemaPlayground = () => {
   }
 
   const output = response ? JSON.stringify(response.errors, null, 2) : ''
+
+  const {setContainer: setSchemaContainer} = useCodeMirror({
+    height: '500px',
+    extensions: inputExtensions,
+    value: schema,
+    onChange: val => setSchema(val)
+  })
+  const {setContainer: setInstanceContainer} = useCodeMirror({
+    height: '500px',
+    extensions: inputExtensions,
+    value: instance,
+    onChange: val => setInstance(val)
+  })
+  const {setContainer: setOutputContainer} = useCodeMirror({
+    height: '500px',
+    extensions: outputExtensions,
+    value: output
+  })
 
   return (
     <>
@@ -77,21 +101,11 @@ const JsonSchemaPlayground = () => {
       <div className='editors-wrapper'>
         <div className='editor-container'>
           <h2>Schema</h2>
-          <ReactCodeMirror
-            extensions={extensions}
-            height='500px'
-            value={schema}
-            onChange={val => setSchema(val)}
-          />
+          {useMemo(() => <div ref={elem => setSchemaContainer(elem!)}></div>, [schema])}
         </div>
         <div className='editor-container'>
           <h2>Instance</h2>
-          <ReactCodeMirror
-            extensions={extensions}
-            height='500px'
-            value={instance}
-            onChange={val => setInstance(val)}
-          />
+          {useMemo(() => <div ref={elem => setInstanceContainer(elem!)}></div>, [instance])}
         </div>
       </div>
       <div className='buttons'>
@@ -100,12 +114,7 @@ const JsonSchemaPlayground = () => {
       </div>
       <div className='editor-container'>
         <h2>Output</h2>
-        <ReactCodeMirror
-          extensions={[json()]}
-          height='500px'
-          value={output}
-          readOnly={true}
-        />
+        {useMemo(() => <div ref={elem => setOutputContainer(elem!)}></div>, [output])}
       </div>
     </>
   )
