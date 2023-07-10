@@ -18,7 +18,7 @@ repositories {
 dependencies {
     implementation 'ch.qos.logback:logback-classic:1.4.7'
     implementation 'io.javalin:javalin:5.5.0'
-    implementation 'dev.harrel:json-schema:1.1.0'
+    implementation 'dev.harrel:json-schema:1.2.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 
     web project(path: ':web', configuration: 'output')
