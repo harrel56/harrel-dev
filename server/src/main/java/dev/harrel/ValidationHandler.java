@@ -35,7 +35,7 @@ public class ValidationHandler implements Handler {
             response = new Response(false, e.getErrors(), "Schema failed validation against meta-schema");
             ctx.status(400);
         } catch (MetaSchemaResolvingException e) {
-            response = new Response(false, null, e.getMessage());
+            response = new Response(false, List.of(), e.getMessage());
             ctx.status(400);
         }
         String responseJson = mapper.writeValueAsString(response);
