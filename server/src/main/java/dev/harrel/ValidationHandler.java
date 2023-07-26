@@ -3,10 +3,8 @@ package dev.harrel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.harrel.jsonschema.*;
 import dev.harrel.jsonschema.Error;
-import dev.harrel.jsonschema.InvalidSchemaException;
-import dev.harrel.jsonschema.Validator;
-import dev.harrel.jsonschema.ValidatorFactory;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.slf4j.Logger;
@@ -35,6 +33,9 @@ public class ValidationHandler implements Handler {
             response = new Response(result.isValid(), result.getErrors(), null);
         } catch (InvalidSchemaException e) {
             response = new Response(false, e.getErrors(), "Schema failed validation against meta-schema");
+            ctx.status(400);
+        } catch (MetaSchemaResolvingException e) {
+            response = new Response(false, null, e.getMessage());
             ctx.status(400);
         }
         String responseJson = mapper.writeValueAsString(response);
