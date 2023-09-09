@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react'
+import {useState} from 'react'
 import {json, jsonParseLinter} from '@codemirror/lang-json'
 import {CachePolicies, useFetch} from 'use-http'
 import {Button} from './Button'
@@ -101,11 +101,11 @@ const JsonSchemaPlayground = () => {
       <div className='editors-wrapper'>
         <div className='editor-container'>
           <h2>Schema</h2>
-          {useMemo(() => <div ref={elem => setSchemaContainer(elem!)}></div>, [schema])}
+          <div ref={elem => setSchemaContainer(elem!)}></div>
         </div>
         <div className='editor-container'>
           <h2>Instance</h2>
-          {useMemo(() => <div ref={elem => setInstanceContainer(elem!)}></div>, [instance])}
+          <div ref={elem => setInstanceContainer(elem!)}></div>
         </div>
       </div>
       <div className='buttons'>
@@ -114,7 +114,7 @@ const JsonSchemaPlayground = () => {
       </div>
       <div className='editor-container'>
         <h2>Output</h2>
-        {useMemo(() => <div ref={elem => setOutputContainer(elem!)}></div>, [output])}
+        <div ref={elem => setOutputContainer(elem!)}></div>
       </div>
     </>
   )
