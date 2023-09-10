@@ -3,6 +3,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import {LoadingSpinner} from './util/LoadingSpinner.tsx'
 import ReactDOMClient from 'react-dom/client'
 import {App} from './App.tsx'
+import {VersionContextProvider} from './ctx/VersionContext.tsx'
 
 const JsonSchemaPlayground = lazy(() => import('./JsonSchemaPlayground.tsx'))
 
@@ -39,4 +40,8 @@ const router = createBrowserRouter([
 ])
 
 const root = ReactDOMClient.createRoot(document.getElementById('root')!)
-root.render(<RouterProvider router={router}/>)
+root.render(
+  <VersionContextProvider>
+    <RouterProvider router={router}/>
+  </VersionContextProvider>
+)
