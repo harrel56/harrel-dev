@@ -52,7 +52,8 @@ tasks.register('fatJar', Jar) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes 'Main-Class': 'dev.harrel.App',
-                   'Json-Schema-Version': jsonSchemaVersion
+                   'Json-Schema-Version': jsonSchemaVersion,
+                   'Image-Version': project.findProperty('imageVersion') ?: 'unknown'
     }
     from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar

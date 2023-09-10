@@ -5,28 +5,32 @@ import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
+import java.util.Optional;
+import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
 public class VersionHandler implements Handler {
-    private final String imageVersion;
-    private final String jsonSchemaVersion;
+    private final VersionResponse versionResponse;
 
     public VersionHandler() {
-        this.imageVersion = System.getenv().getOrDefault("TAG", "unknown");
-        this.jsonSchemaVersion = getJsonSchemaVersion();
+        Attributes attributes = getManifestAttributes();
+        String imageVersion = Optional.ofNullable(attributes.getValue("Image-Version"))
+                .orElse("unknown");
+        String jsonSchemaVersion = Optional.ofNullable(attributes.getValue("Json-Schema-Version"))
+                .orElse("unknown");
+        this.versionResponse = new VersionResponse(imageVersion, jsonSchemaVersion);
     }
 
     @Override
     public void handle(@NotNull Context ctx) {
-        ctx.json(new VersionResponse(imageVersion, jsonSchemaVersion));
+        ctx.json(versionResponse);
     }
 
-    private String getJsonSchemaVersion() {
+    private Attributes getManifestAttributes() {
         try (InputStream is = App.class.getResourceAsStream("/META-INF/MANIFEST.MF")) {
-            var attributes = new Manifest(is).getMainAttributes();
-            return attributes.getValue("Json-Schema-Version");
+            return new Manifest(is).getMainAttributes();
         } catch (Exception e) {
-            return "unknown";
+            return new Attributes();
         }
     }
 }
