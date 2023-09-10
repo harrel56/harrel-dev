@@ -9,7 +9,6 @@ import java.util.function.Consumer;
 public class App {
 
     public static void main(String[] args) {
-        String version = System.getenv().getOrDefault("TAG", "unspecified");
         Consumer<JavalinConfig> configConsumer = config -> {
             config.spaRoot.addFile("/", "/web/index.html");
             config.staticFiles.add(staticFiles -> {
@@ -25,7 +24,7 @@ public class App {
         };
 
         Javalin.create(configConsumer)
-                .get("/api/version", ctx -> ctx.json(version))
+                .get("/api/version", new VersionHandler())
                 .post("/api/json-validate", new ValidationHandler())
                 .start(8080);
     }

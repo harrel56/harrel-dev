@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useContext, useState} from 'react'
 import {json, jsonParseLinter} from '@codemirror/lang-json'
 import {CachePolicies, useFetch} from 'use-http'
 import {Button} from './Button'
@@ -6,6 +6,7 @@ import {linter, lintGutter} from '@codemirror/lint'
 import {useCodeMirror} from '@uiw/react-codemirror'
 import {useDebounce, useLocalStorage} from 'react-use'
 import {EditorView} from '@codemirror/view'
+import {VersionContext} from './ctx/VersionContext.tsx'
 
 interface Response {
   valid: boolean
@@ -25,6 +26,7 @@ const inputExtensions = [json(), EditorView.lineWrapping, lintGutter(), linter(j
 const outputExtensions = [json(), EditorView.lineWrapping]
 
 const JsonSchemaPlayground = () => {
+  const {jsonSchemaVersion} = useContext(VersionContext)
   const [schemaStorage, setSchemaStorage] = useLocalStorage('schema', DEFAULT_SCHEMA)
   const [instanceStorage, setInstanceStorage] = useLocalStorage('instance', DEFAULT_INSTANCE)
   const [schema, setSchema] = useState(schemaStorage!)
@@ -93,7 +95,8 @@ const JsonSchemaPlayground = () => {
       <p>
         This validator is implemented in Java and supports only <i>draft2020-12</i> specification version.
         Its source code can be found <a href='https://github.com/harrel56/json-schema'>here</a> and it's also accessible
-        on <a href='https://mvnrepository.com/artifact/dev.harrel/json-schema'>Maven Central</a>.
+        on <a href='https://mvnrepository.com/artifact/dev.harrel/json-schema'>Maven Central</a> (version in
+        use: <b><i>{jsonSchemaVersion}</i></b>).
         You can check how it compares to other implementations on <a
         href='https://bowtie-json-schema.github.io/bowtie'>Bowtie</a>. If anything seems to not work right, please
         report an <a href='https://github.com/harrel56/json-schema/issues'>issue</a>, it would be really appreciated.

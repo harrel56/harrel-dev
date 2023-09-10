@@ -1,8 +1,9 @@
 import {RouterLink} from "./RouterLink.tsx";
-import {useFetch} from "use-http";
+import {useContext} from 'react'
+import {VersionContext} from './ctx/VersionContext.tsx'
 
 export const SideBar = ({visible}: { visible: boolean }) => {
-    const {data} = useFetch<any>('/api/version', {}, [])
+    const {imageVersion} = useContext(VersionContext)
 
     return (
         <nav className={'nav-container ' + (visible ? 'visible' : '')}>
@@ -16,7 +17,7 @@ export const SideBar = ({visible}: { visible: boolean }) => {
             </ul>
 
             <footer className='footer-container'>
-                {data && <p>{data}</p>}
+                <p>{imageVersion}</p>
             </footer>
         </nav>
     )
