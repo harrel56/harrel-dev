@@ -6,7 +6,17 @@ on:
     branches: [ master ]
 
 jobs:
+  generate-image-tag:
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.generate-image-tag.outputs.image-tag }}
+    steps:
+      - name: Generate image tag
+        id: generate-image-tag
+        run: echo "image-tag=$(date +"%Y%m%d-%H%M%S")" >> "$GITHUB_OUTPUT"
+
   build-gradle:
+    needs: generate-image-tag
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -28,6 +38,9 @@ jobs:
 
       - name: Execute Gradle build
         run: ./gradlew build --no-daemon
+
+      - name: Testing
+        run: echo ${{ needs.generate-image-tag.outputs.image-tag }}
 
       - name: Upload build
         uses: actions/upload-artifact@v3
