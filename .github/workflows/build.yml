@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Generate image tag
         id: generate-image-tag
-        run: echo "image-tag=$(date +"%Y%m%d-%H%M%S")" >> "$GITHUB_OUTPUT"
+        run: echo "image-tag=${GITHUB_REF_NAME}-$(date +"%Y%m%d-%H%M%S")" >> "$GITHUB_OUTPUT"
 
   build-gradle:
     needs: generate-image-tag
