@@ -32,17 +32,17 @@ tasks.register('build', Exec) {
     outputs.dir('dist')
 }
 
-//tasks.register('bunInstall', Exec) {
-//    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun install"'
-//}
-//
-//tasks.register('bunRunDev', Exec) {
-//    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun run --bun dev"'
-//}
-//
-//tasks.register('bunBuild', Exec) {
-//    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun run --bun build"'
-//}
+tasks.register('bunInstallLocal', Exec) {
+    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun install"'
+}
+
+tasks.register('bunRunDevLocal', Exec) {
+    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun run --bun dev"'
+}
+
+tasks.register('bunBuildLocal', Exec) {
+    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun run --bun build"'
+}
 
 artifacts {
     output(tasks.build.outputs.files.singleFile) {
