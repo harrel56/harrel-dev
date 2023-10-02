@@ -10,13 +10,38 @@ tasks.register('clean') {
     delete files('dist')
 }
 
-tasks.register('build', NpmTask) {
-    dependsOn(npmInstall)
-    npmCommand = ['run', 'build']
+//tasks.register('build', NpmTask) {
+//    dependsOn(npmInstall)
+//    npmCommand = ['run', 'build']
+//    inputs.files(fileTree('.').matching {
+//        exclude 'dist', 'node_modules', 'package-lock.json'
+//    }.findAll())
+//    outputs.dir('dist')
+//}
+
+tasks.register('bunInstall', Exec) {
+    commandLine 'bun', 'install'
+}
+
+tasks.register('build', Exec) {
+    dependsOn(bunInstall)
+    commandLine 'bun', 'run', '--bun', 'build'
     inputs.files(fileTree('.').matching {
         exclude 'dist', 'node_modules', 'package-lock.json'
     }.findAll())
     outputs.dir('dist')
+}
+
+tasks.register('bunInstall', Exec) {
+    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun install"'
+}
+
+tasks.register('bunRunDev', Exec) {
+    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun run --bun dev"'
+}
+
+tasks.register('bunBuild', Exec) {
+    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun run --bun build"'
 }
 
 artifacts {
