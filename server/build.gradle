@@ -14,11 +14,6 @@ repositories {
     mavenCentral()
 }
 
-java {
-    sourceCompatibility JavaVersion.VERSION_21
-    targetCompatibility JavaVersion.VERSION_21
-}
-
 def jsonSchemaVersion = '1.3.1'
 
 dependencies {
