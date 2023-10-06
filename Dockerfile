@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjre-alpine:21
+FROM amazoncorretto:19-alpine-jdk
 COPY build/*.jar app.jar
 
 EXPOSE 8080
