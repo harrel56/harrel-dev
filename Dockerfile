@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjre-alpine:21
+FROM bellsoft/liberica-openjdk-alpine:21
 COPY build/*.jar app.jar
 
 EXPOSE 8080

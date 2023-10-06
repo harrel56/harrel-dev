@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 public class App {
 
     public static void main(String[] args) {
-        ConcurrencyUtil.INSTANCE.setUseLoom(false);
+//        ConcurrencyUtil.INSTANCE.setUseLoom(false);
         Consumer<JavalinConfig> configConsumer = config -> {
             config.spaRoot.addFile("/", "/web/index.html");
             config.staticFiles.add(staticFiles -> {
