@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-runtime-container:jre-21-slim-glibc
+FROM bellsoft/liberica-openjdk-alpine:21
 COPY build/*.jar app.jar
 
 EXPOSE 8080
