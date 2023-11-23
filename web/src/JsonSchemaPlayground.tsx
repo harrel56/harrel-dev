@@ -93,7 +93,8 @@ const JsonSchemaPlayground = () => {
     <>
       <h1>JSON Schema</h1>
       <p>
-        This validator is implemented in Java and supports only <i>draft2020-12</i> specification version.
+        This validator is implemented in Java and supports <i>draft2020-12</i> and <i>draft2019-09</i> specification version
+        (for now the web validator only runs in <i>draft2020-12</i> mode).
         Its source code can be found <a href='https://github.com/harrel56/json-schema'>here</a> and it's also accessible
         on <a href='https://mvnrepository.com/artifact/dev.harrel/json-schema'>Maven Central</a> (version in
         use: <b><i>{jsonSchemaVersion}</i></b>).
