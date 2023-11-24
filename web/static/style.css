@@ -30,12 +30,17 @@ h2 {
 
 select {
     display: block;
-    width: 320px;
+    max-width: 320px;
     padding: 8px 32px 8px 8px;
     background-color: var(--bg-color);
     color: inherit;
     border: 1px solid var(--font-color);
     border-radius: 4px;
+}
+
+.toast {
+    min-width: 240px;
+    color: var(--font-color);
 }
 
 .main-container {

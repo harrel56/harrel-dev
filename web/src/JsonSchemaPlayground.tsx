@@ -7,6 +7,7 @@ import {useCodeMirror} from '@uiw/react-codemirror'
 import {useDebounce, useLocalStorage} from 'react-use'
 import {EditorView} from '@codemirror/view'
 import {VersionContext} from './ctx/VersionContext.tsx'
+import toast from 'react-hot-toast'
 
 interface Response {
   valid: boolean
@@ -35,7 +36,7 @@ const JsonSchemaPlayground = () => {
   const [response, setResponse] = useState<Response>()
   const [parseError, setParseError] = useState<string>()
 
-  const {post, loading, error} = useFetch<any>('/api/json-validate', {cachePolicy: CachePolicies.NO_CACHE})
+  const {post, loading, error} = useFetch<Response>('/api/json-validate', {cachePolicy: CachePolicies.NO_CACHE})
   useDebounce(() => setSchemaStorage(schema), 1000, [schema])
   useDebounce(() => setInstanceStorage(instance), 1000, [instance])
 
@@ -58,6 +59,13 @@ const JsonSchemaPlayground = () => {
       return
     }
     const result = await post({dialect: dialect, schema: schemaJson, instance: instanceJson})
+    if (!result) {
+      toast('Request failed', { icon: '💥' })
+    } else if (result.valid) {
+      toast('Validation successful', { icon: '✅' })
+    } else {
+      toast('Validation failed', { icon: '❌' })
+    }
     setResponse(result)
   }
 
