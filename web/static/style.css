@@ -7,6 +7,25 @@
     --success-color: #3b8b37;
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: hsl(230, 25%, 18%);
+        --font-color: hsl(210, 50%, 96%);
+        --highlight-color: hsl(260, 20%, 40%);
+        --primary-color: hsl(260, 100%, 80%);
+        --faded-color: hsla(230, 20%, 0%, 20%);
+        --success-color: #3b8b37;
+    }
+
+    a {
+        color: var(--font-color);
+    }
+
+    a:visited {
+        color: var(--primary-color);
+    }
+}
+
 html {
     line-height: 1.5;
     font-family: "Inter", sans-serif;
@@ -203,8 +222,26 @@ a.router-link {
     background: var(--faded-color);
 }
 
+.cm-editor {
+    background: var(--bg-color);
+}
+
+.cm-line {
+    caret-color: var(--font-color) !important;
+}
+
 .cm-gutters {
     background: var(--faded-color) !important;
+    border-color: var(--faded-color) !important;
+    color: var(--font-color) !important;
+}
+
+.cm-activeLine, .cm-selectionBackground {
+    background: #ffffff0f !important;
+}
+
+.cm-activeLineGutter {
+    background: var(--highlight-color) !important;
 }
 
 .error-message {
