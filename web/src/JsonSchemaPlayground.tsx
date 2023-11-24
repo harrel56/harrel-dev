@@ -27,6 +27,7 @@ const outputExtensions = [json(), EditorView.lineWrapping]
 
 const JsonSchemaPlayground = () => {
   const {jsonSchemaVersion} = useContext(VersionContext)
+  const [dialect, setDialect] = useState('https://json-schema.org/draft/2020-12/schema')
   const [schemaStorage, setSchemaStorage] = useLocalStorage('schema', DEFAULT_SCHEMA)
   const [instanceStorage, setInstanceStorage] = useLocalStorage('instance', DEFAULT_INSTANCE)
   const [schema, setSchema] = useState(schemaStorage!)
@@ -56,7 +57,7 @@ const JsonSchemaPlayground = () => {
       setResponse(undefined)
       return
     }
-    const result = await post({schema: schemaJson, instance: instanceJson})
+    const result = await post({dialect: dialect, schema: schemaJson, instance: instanceJson})
     setResponse(result)
   }
 
@@ -93,8 +94,7 @@ const JsonSchemaPlayground = () => {
     <>
       <h1>JSON Schema</h1>
       <p>
-        This validator is implemented in Java and supports <i>draft2020-12</i> and <i>draft2019-09</i> specification version
-        (for now the web validator only runs in <i>draft2020-12</i> mode).
+        This validator is implemented in Java and supports <i>draft2020-12</i> and <i>draft2019-09</i> specification version.
         Its source code can be found <a href='https://github.com/harrel56/json-schema'>here</a> and it's also accessible
         on <a href='https://mvnrepository.com/artifact/dev.harrel/json-schema'>Maven Central</a> (version in
         use: <b><i>{jsonSchemaVersion}</i></b>).
@@ -102,6 +102,10 @@ const JsonSchemaPlayground = () => {
         href='https://bowtie-json-schema.github.io/bowtie'>Bowtie</a>. If anything seems to not work right, please
         report an <a href='https://github.com/harrel56/json-schema/issues'>issue</a>, it would be really appreciated.
       </p>
+      <select value={dialect} onChange={e => setDialect(e.target.value)}>
+        <option value='https://json-schema.org/draft/2020-12/schema'>Draft 2020-12</option>
+        <option value='https://json-schema.org/draft/2019-09/schema'>Draft 2019-09</option>
+      </select>
       <div className='editors-wrapper'>
         <div className='editor-container'>
           <h2>Schema</h2>
