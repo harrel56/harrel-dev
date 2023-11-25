@@ -1,4 +1,5 @@
 import {useContext, useState} from 'react'
+import './code-mirror.css'
 import {json, jsonParseLinter} from '@codemirror/lang-json'
 import {CachePolicies, useFetch} from 'use-http'
 import {Button} from './Button'
@@ -8,6 +9,7 @@ import {useDebounce, useLocalStorage} from 'react-use'
 import {EditorView} from '@codemirror/view'
 import {VersionContext} from './ctx/VersionContext.tsx'
 import toast from 'react-hot-toast'
+import {ThemeContext} from './ctx/ThemeContext.tsx'
 
 interface Response {
   valid: boolean
@@ -28,6 +30,7 @@ const outputExtensions = [json(), EditorView.lineWrapping]
 
 const JsonSchemaPlayground = () => {
   const {jsonSchemaVersion} = useContext(VersionContext)
+  const {theme} = useContext(ThemeContext)
   const [dialect, setDialect] = useState('https://json-schema.org/draft/2020-12/schema')
   const [schemaStorage, setSchemaStorage] = useLocalStorage('schema', DEFAULT_SCHEMA)
   const [instanceStorage, setInstanceStorage] = useLocalStorage('instance', DEFAULT_INSTANCE)
@@ -60,11 +63,11 @@ const JsonSchemaPlayground = () => {
     }
     const result = await post({dialect: dialect, schema: schemaJson, instance: instanceJson})
     if (!result) {
-      toast('Request failed', { icon: '💥' })
+      toast('Request failed', {icon: '💥'})
     } else if (result.valid) {
-      toast('Validation successful', { icon: '✅' })
+      toast('Validation successful', {icon: '✅'})
     } else {
-      toast('Validation failed', { icon: '❌' })
+      toast('Validation failed', {icon: '❌'})
     }
     setResponse(result)
   }
@@ -84,25 +87,29 @@ const JsonSchemaPlayground = () => {
     height: '500px',
     extensions: inputExtensions,
     value: schema,
+    theme: theme,
     onChange: val => setSchema(val)
   })
   const {setContainer: setInstanceContainer} = useCodeMirror({
     height: '500px',
     extensions: inputExtensions,
     value: instance,
+    theme: theme,
     onChange: val => setInstance(val)
   })
   const {setContainer: setOutputContainer} = useCodeMirror({
     height: '500px',
     extensions: outputExtensions,
-    value: output
+    value: output,
+    theme: theme
   })
 
   return (
     <>
       <h1>JSON Schema</h1>
       <p>
-        This validator is implemented in Java and supports <i>draft2020-12</i> and <i>draft2019-09</i> specification version.
+        This validator is implemented in Java and supports <i>draft2020-12</i> and <i>draft2019-09</i> specification
+        version.
         Its source code can be found <a href='https://github.com/harrel56/json-schema'>here</a> and it's also accessible
         on <a href='https://mvnrepository.com/artifact/dev.harrel/json-schema'>Maven Central</a> (version in
         use: <b><i>{jsonSchemaVersion}</i></b>).

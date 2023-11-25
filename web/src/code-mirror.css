@@ -1,0 +1,25 @@
+.cm-editor {
+    background: var(--faded-color);
+}
+
+.cm-cursor {
+    border-color: var(--font-color) !important;
+}
+
+.cm-line {
+    caret-color: var(--font-color) !important;
+}
+
+.cm-gutters {
+    background: var(--dim-color) !important;
+    border-color: var(--dim-color) !important;
+    color: var(--font-color) !important;
+}
+
+.cm-activeLine {
+    background: transparent !important;
+}
+
+.cm-activeLineGutter {
+    background: var(--highlight-color) !important;
+}
