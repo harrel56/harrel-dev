@@ -1,0 +1,65 @@
+:root, :root.light {
+    --bg-color: #fafaf9;
+    --font-color: #3d2c29;
+    --highlight-color: #f0dfdb;
+    --primary-color: #e63c1a;
+    --faded-color: #f3eeed;
+    --success-color: #3b8b37;
+}
+
+:root.dark {
+    --bg-color: hsl(230, 25%, 18%);
+    --font-color: hsl(210, 50%, 96%);
+    --highlight-color: hsl(260, 20%, 40%);
+    --primary-color: hsl(260, 100%, 80%);
+    --faded-color: hsla(230, 20%, 0%, 20%);
+    --success-color: #3b8b37;
+}
+
+:root.dark:has(a) {
+    color: var(--font-color);
+}
+
+:root.dark:has(a:visited) {
+    color: var(--primary-color);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: hsl(230, 25%, 18%);
+        --font-color: hsl(210, 50%, 96%);
+        --highlight-color: hsl(260, 20%, 40%);
+        --primary-color: hsl(260, 100%, 80%);
+        --faded-color: hsla(230, 20%, 0%, 20%);
+        --success-color: #3b8b37;
+    }
+
+    a {
+        color: var(--font-color);
+    }
+
+    a:visited {
+        color: var(--primary-color);
+    }
+}
+
+html {
+    line-height: 1.5;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    color: var(--font-color);
+}
+
+h1, h2, h3 {
+    font-weight: 900;
+}
+
+h1 {
+    font-size: 48px;
+    letter-spacing: -1.5px;
+}
+
+h2 {
+    font-size: 32px;
+    letter-spacing: -1px;
+}
