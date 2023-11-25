@@ -4,42 +4,26 @@
     --highlight-color: #f0dfdb;
     --primary-color: #e63c1a;
     --faded-color: #f3eeed;
-    --success-color: #3b8b37;
+    --dim-color: #d0bfbb;
 }
 
 :root.dark {
-    --bg-color: hsl(230, 25%, 18%);
-    --font-color: hsl(210, 50%, 96%);
-    --highlight-color: hsl(260, 20%, 40%);
-    --primary-color: hsl(260, 100%, 80%);
-    --faded-color: hsla(230, 20%, 0%, 20%);
-    --success-color: #3b8b37;
-}
-
-:root.dark:has(a) {
-    color: var(--font-color);
-}
-
-:root.dark:has(a:visited) {
-    color: var(--primary-color);
+    --bg-color: #222639;
+    --font-color: #f0f5fA;
+    --highlight-color: #5f527a;
+    --primary-color: #bb99ff;
+    --faded-color: #1b1e2e;
+    --dim-color: #161825;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-color: hsl(230, 25%, 18%);
-        --font-color: hsl(210, 50%, 96%);
-        --highlight-color: hsl(260, 20%, 40%);
-        --primary-color: hsl(260, 100%, 80%);
-        --faded-color: hsla(230, 20%, 0%, 20%);
-        --success-color: #3b8b37;
-    }
-
-    a {
-        color: var(--font-color);
-    }
-
-    a:visited {
-        color: var(--primary-color);
+        --bg-color: #222639;
+        --font-color: #f0f5fA;
+        --highlight-color: #5f527a;
+        --primary-color: #bb99ff;
+        --faded-color: #1b1e2e;
+        --dim-color: #161825;
     }
 }
 
@@ -62,4 +46,13 @@ h1 {
 h2 {
     font-size: 32px;
     letter-spacing: -1px;
+}
+
+
+a {
+    color: var(--font-color);
+}
+
+a:visited {
+    color: var(--primary-color);
 }

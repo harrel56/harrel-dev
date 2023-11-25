@@ -173,32 +173,6 @@ a.router-link {
     background: var(--faded-color);
 }
 
-.cm-editor {
-    background: var(--faded-color);
-}
-
-.cm-cursor {
-    border-color: var(--font-color) !important;
-}
-
-.cm-line {
-    caret-color: var(--font-color) !important;
-}
-
-.cm-gutters {
-    background: var(--faded-color) !important;
-    border-color: var(--faded-color) !important;
-    color: var(--font-color) !important;
-}
-
-.cm-activeLine, .cm-selectionBackground {
-    background: #ffffff0f !important;
-}
-
-.cm-activeLineGutter {
-    background: var(--highlight-color) !important;
-}
-
 .error-message {
     margin: 0;
     font-weight: 700;

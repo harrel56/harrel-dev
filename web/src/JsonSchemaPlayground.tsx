@@ -1,4 +1,5 @@
 import {useContext, useState} from 'react'
+import './code-mirror.css'
 import {json, jsonParseLinter} from '@codemirror/lang-json'
 import {CachePolicies, useFetch} from 'use-http'
 import {Button} from './Button'
