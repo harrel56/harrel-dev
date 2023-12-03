@@ -19,7 +19,7 @@ java {
     targetCompatibility JavaVersion.VERSION_21
 }
 
-def jsonSchemaVersion = '1.4.3'
+def jsonSchemaVersion = '1.5.0'
 
 dependencies {
     implementation 'org.tinylog:slf4j-tinylog:2.6.2'

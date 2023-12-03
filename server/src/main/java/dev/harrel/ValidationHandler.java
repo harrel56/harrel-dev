@@ -2,8 +2,8 @@ package dev.harrel;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.harrel.jsonschema.*;
 import dev.harrel.jsonschema.Error;
+import dev.harrel.jsonschema.*;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.slf4j.Logger;
@@ -18,10 +18,13 @@ public class ValidationHandler implements Handler {
     private static final Logger logger = LoggerFactory.getLogger(ValidationHandler.class);
 
     private final ObjectMapper mapper = new ObjectMapper();
-    private final ValidatorFactory defaultValidatorFactory = new ValidatorFactory();
+    private final ValidatorFactory defaultValidatorFactory = new ValidatorFactory()
+            .withEvaluatorFactory(new FormatEvaluatorFactory());
     private final Map<String, ValidatorFactory> validatorFactories = Map.of(
             SpecificationVersion.DRAFT2020_12.getId(), defaultValidatorFactory,
-            SpecificationVersion.DRAFT2019_09.getId(), new ValidatorFactory().withDialect(new Dialects.Draft2019Dialect())
+            SpecificationVersion.DRAFT2019_09.getId(), new ValidatorFactory()
+                    .withEvaluatorFactory(new FormatEvaluatorFactory())
+                    .withDialect(new Dialects.Draft2019Dialect())
     );
 
     @Override
