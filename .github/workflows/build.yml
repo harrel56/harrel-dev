@@ -85,7 +85,6 @@ jobs:
       - generate-image-tag
       - build-docker
     steps:
-      - run: echo ${{ secrets.SSH_PASSWORD }} | base64
       - name: Deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
