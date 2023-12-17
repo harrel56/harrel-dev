@@ -85,12 +85,13 @@ jobs:
       - generate-image-tag
       - build-docker
     steps:
+      - run: echo ${{ secrets.SSH_PASSWORD }} | base64
       - name: Deploy
-        uses: appleboy/ssh-action@v0.1.8
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /home/harrel/harrel-site
+            cd /home/harrel/jar-hell
             sudo ./deploy.sh ${{ needs.generate-image-tag.outputs.image-tag }}
