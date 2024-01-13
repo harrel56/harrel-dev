@@ -5,26 +5,27 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "visualize": "npx vite-bundle-visualizer"
+    "visualize": "npx vite-bundle-visualizer",
+    "update-deps": "npx npm-check-updates -u"
   },
   "dependencies": {
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "6.16.0",
+    "react-router-dom": "6.21.2",
     "use-http": "1.0.28",
-    "react-use": "17.4.0",
-    "@uiw/react-codemirror": "4.21.18",
+    "react-use": "17.4.2",
+    "@uiw/react-codemirror": "4.21.21",
     "@codemirror/lang-json": "6.0.1",
     "@codemirror/lint": "6.4.2",
-    "react-icons": "4.11.0",
+    "react-icons": "5.0.1",
     "react-hot-toast": "2.4.1"
   },
   "devDependencies": {
-    "typescript": "5.2.2",
-    "ts-loader": "9.4.4",
-    "@types/react": "18.2.24",
-    "@types/react-dom": "18.2.8",
-    "vite": "4.4.9",
-    "@vitejs/plugin-react-swc": "3.4.0"
+    "typescript": "5.3.3",
+    "ts-loader": "9.5.1",
+    "@types/react": "18.2.47",
+    "@types/react-dom": "18.2.18",
+    "vite": "5.0.11",
+    "@vitejs/plugin-react-swc": "3.5.0"
   }
 }
