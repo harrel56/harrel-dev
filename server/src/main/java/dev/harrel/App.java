@@ -2,7 +2,6 @@ package dev.harrel;
 
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
-import io.javalin.util.ConcurrencyUtil;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -10,7 +9,6 @@ import java.util.function.Consumer;
 public class App {
 
     public static void main(String[] args) {
-        ConcurrencyUtil.INSTANCE.setUseLoom(false);
         Consumer<JavalinConfig> configConsumer = config -> {
             config.spaRoot.addFile("/", "/web/index.html");
             config.staticFiles.add(staticFiles -> {
