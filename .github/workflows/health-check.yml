@@ -1,0 +1,21 @@
+name: health-heck
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 18 * * *'
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.generate-image-tag.outputs.image-tag }}
+    steps:
+      - name: Probe harrel.dev
+        uses: jtalk/url-health-check-action@v4
+        with:
+          url: https://harrel.dev/json-schema
+          follow-redirects: true
+          max-attempts: 5
+          retry-delay: 10s
+          retry-all: true
