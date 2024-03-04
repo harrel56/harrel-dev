@@ -15,7 +15,7 @@ jobs:
         uses: jtalk/url-health-check-action@v4
         with:
           url: https://harrel.dev/json-schema
-          follow-redirects: true
+          follow-redirect: true
           max-attempts: 5
           retry-delay: 10s
           retry-all: true
