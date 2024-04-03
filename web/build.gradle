@@ -1,7 +1,3 @@
-plugins {
-    id "com.github.node-gradle.node" version "7.0.1"
-}
-
 configurations {
     output
 }
@@ -10,40 +6,18 @@ tasks.register('clean') {
     delete files('dist')
 }
 
-tasks.register('build', NpmTask) {
-    dependsOn(npmInstall)
-    npmCommand = ['run', 'build']
+tasks.register('bunInstall', Exec) {
+    commandLine 'bun', 'install', '--frozen-lockfile'
+}
+
+tasks.register('build', Exec) {
+    dependsOn(bunInstall)
+    commandLine 'bun', 'run', '--bun', 'build'
     inputs.files(fileTree('.').matching {
-        exclude 'dist', 'node_modules', 'package-lock.json'
+        exclude 'dist', 'node_modules', 'bun.lockb'
     }.findAll())
     outputs.dir('dist')
 }
-
-
-//tasks.register('bunInstall', Exec) {
-//    commandLine 'bun', 'install', '--frozen-lockfile'
-//}
-
-//tasks.register('build', Exec) {
-//    dependsOn(bunInstall)
-//    commandLine 'bun', 'run', '--bun', 'build'
-//    inputs.files(fileTree('.').matching {
-//        exclude 'dist', 'node_modules', 'package-lock.json'
-//    }.findAll())
-//    outputs.dir('dist')
-//}
-
-//tasks.register('bunInstallLocal', Exec) {
-//    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun install"'
-//}
-//
-//tasks.register('bunRunDevLocal', Exec) {
-//    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun run --bun dev"'
-//}
-//
-//tasks.register('bunBuildLocal', Exec) {
-//    commandLine 'cmd', '/c', 'wsl', '-e', 'bash', '-li', '-c', '"bun run --bun build"'
-//}
 
 artifacts {
     output(tasks.build.outputs.files.singleFile) {
