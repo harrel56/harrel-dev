@@ -1,4 +1,4 @@
-name: health-heck
+name: health-check
 
 on:
   workflow_dispatch:
