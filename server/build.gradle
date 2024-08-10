@@ -19,16 +19,16 @@ java {
     targetCompatibility JavaVersion.VERSION_21
 }
 
-def jsonSchemaVersion = '1.6.0'
+def jsonSchemaVersion = '1.7.1'
 
 dependencies {
     implementation 'org.tinylog:slf4j-tinylog:2.7.0'
     implementation 'org.tinylog:tinylog-impl:2.7.0'
 
-    implementation 'io.javalin:javalin:6.1.4'
+    implementation 'io.javalin:javalin:6.2.0'
     implementation "dev.harrel:json-schema:$jsonSchemaVersion"
-    implementation 'com.sanctionco.jmail:jmail:1.6.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1'
+    implementation 'com.sanctionco.jmail:jmail:1.6.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
 
     web project(path: ':web', configuration: 'output')
 }

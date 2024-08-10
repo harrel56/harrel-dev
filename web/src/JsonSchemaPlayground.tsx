@@ -18,6 +18,7 @@ interface Response {
 }
 
 const DEFAULT_SCHEMA = `{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$ref": "https://json-schema.org/draft/2020-12/schema"
 }`
 const DEFAULT_INSTANCE = '{}'
@@ -31,7 +32,7 @@ const outputExtensions = [json(), EditorView.lineWrapping]
 const JsonSchemaPlayground = () => {
   const {jsonSchemaVersion} = useContext(VersionContext)
   const {theme} = useContext(ThemeContext)
-  const [dialect, setDialect] = useState('https://json-schema.org/draft/2020-12/schema')
+  const [dialectStorage, setDialectStorage] = useLocalStorage('dialect', 'https://json-schema.org/draft/2020-12/schema')
   const [schemaStorage, setSchemaStorage] = useLocalStorage('schema', DEFAULT_SCHEMA)
   const [instanceStorage, setInstanceStorage] = useLocalStorage('instance', DEFAULT_INSTANCE)
   const [schema, setSchema] = useState(schemaStorage!)
@@ -61,7 +62,7 @@ const JsonSchemaPlayground = () => {
       setResponse(undefined)
       return
     }
-    const result = await post({dialect: dialect, schema: schemaJson, instance: instanceJson})
+    const result = await post({dialect: dialectStorage, schema: schemaJson, instance: instanceJson})
     if (!result) {
       toast('Request failed', {icon: '💥'})
     } else if (result.valid) {
@@ -108,8 +109,8 @@ const JsonSchemaPlayground = () => {
     <>
       <h1>JSON Schema</h1>
       <p>
-        This validator is implemented in Java and supports <i>draft2020-12</i> and <i>draft2019-09</i> specification
-        version.
+        This validator is implemented in Java and
+        supports <i>draft2020-12</i>, <i>draft2019-09</i> and <i>draft07</i> specification version.
         Its source code can be found <a href='https://github.com/harrel56/json-schema'>here</a> and it's also accessible
         on <a href='https://mvnrepository.com/artifact/dev.harrel/json-schema'>Maven Central</a> (version in
         use: <b><i>{jsonSchemaVersion}</i></b>).
@@ -117,18 +118,19 @@ const JsonSchemaPlayground = () => {
         href='https://bowtie-json-schema.github.io/bowtie'>Bowtie</a>. If anything seems to not work right, please
         report an <a href='https://github.com/harrel56/json-schema/issues'>issue</a>, it would be really appreciated.
       </p>
-      <select value={dialect} onChange={e => setDialect(e.target.value)}>
+      <select value={dialectStorage} onChange={e => setDialectStorage(e.target.value)}>
         <option value='https://json-schema.org/draft/2020-12/schema'>Draft 2020-12</option>
         <option value='https://json-schema.org/draft/2019-09/schema'>Draft 2019-09</option>
+        <option value='http://json-schema.org/draft-07/schema#'>Draft 7</option>
       </select>
       <div className='editors-wrapper'>
         <div className='editor-container'>
           <h2>Schema</h2>
-          <div ref={elem => setSchemaContainer(elem!)}></div>
+          <div ref={elem => setSchemaContainer(elem)}></div>
         </div>
         <div className='editor-container'>
           <h2>Instance</h2>
-          <div ref={elem => setInstanceContainer(elem!)}></div>
+          <div ref={elem => setInstanceContainer(elem)}></div>
         </div>
       </div>
       <div className='buttons'>
@@ -137,7 +139,7 @@ const JsonSchemaPlayground = () => {
       </div>
       <div className='editor-container'>
         <h2>Output</h2>
-        <div ref={elem => setOutputContainer(elem!)}></div>
+        <div ref={elem => setOutputContainer(elem)}></div>
       </div>
     </>
   )
