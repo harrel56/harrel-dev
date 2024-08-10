@@ -115,7 +115,7 @@ const JsonSchemaPlayground = () => {
         on <a href='https://mvnrepository.com/artifact/dev.harrel/json-schema'>Maven Central</a> (version in
         use: <b><i>{jsonSchemaVersion}</i></b>).
         You can check how it compares to other implementations on <a
-        href='https://bowtie-json-schema.github.io/bowtie'>Bowtie</a>. If anything seems to not work right, please
+        href='https://bowtie.report/#/implementations/java-json-schema'>Bowtie</a>. If anything seems to not work right, please
         report an <a href='https://github.com/harrel56/json-schema/issues'>issue</a>, it would be really appreciated.
       </p>
       <select value={dialectStorage} onChange={e => setDialectStorage(e.target.value)}>
