@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         path: '/json-schema',
         element: <Suspense fallback={<LoadingSpinner/>}><JsonSchemaPlayground/></Suspense>,
         loader: () => setPageInfo('JSON Schema online validator',
-          'JSON Schema online validator compliant with draft2020-12 version. It uses dev.harrel.json-schema Java implementation.',
+          'JSON Schema online validator compliant with draft2020-12, draf2019-09 and draft7 version. It uses dev.harrel.json-schema Java implementation.',
           ['json', 'json-schema', 'validator', 'java', 'online'])
       },
       {
