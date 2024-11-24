@@ -6,17 +6,7 @@ on:
     branches: [ master ]
 
 jobs:
-  generate-image-tag:
-    runs-on: ubuntu-latest
-    outputs:
-      image-tag: ${{ steps.generate-image-tag.outputs.image-tag }}
-    steps:
-      - name: Generate image tag
-        id: generate-image-tag
-        run: echo "image-tag=${GITHUB_REF_NAME}-$(date +"%Y%m%d-%H%M%S")" >> "$GITHUB_OUTPUT"
-
   build-gradle:
-    needs: generate-image-tag
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
@@ -37,7 +27,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Execute Gradle build
-        run: ./gradlew build --no-daemon -PimageVersion=${{ needs.generate-image-tag.outputs.image-tag }}
+        run: ./gradlew build --no-daemon
 
       - name: Upload build
         uses: actions/upload-artifact@v4
@@ -49,7 +39,6 @@ jobs:
   build-docker:
     runs-on: ubuntu-latest
     needs:
-      - generate-image-tag
       - build-gradle
     steps:
       - name: Setup Docker Buildx
@@ -62,22 +51,35 @@ jobs:
           username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
 
+      - name: Login to GHCR registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io/${{ github.repository_owner }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN  }}
+
       - name: Download build output
         uses: actions/download-artifact@v4
         with:
           name: build-output
+
+      - name: Set BUILD_VERSION
+        run: echo "BUILD_VERSION=${GITHUB_REF_NAME}-$(date +"%Y%m%d-%H%M%S")" >> "$GITHUB_ENV"
 
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_REGISTRY_HOST }}/harrel-site:${{ needs.generate-image-tag.outputs.image-tag }}
+          build-args: |
+            BUILD_VERSION=${{ env.BUILD_VERSION }}
+          tags: |
+            ${{ secrets.DOCKER_REGISTRY_HOST }}/harrel-site:${{ env.BUILD_VERSION }}
+            ${{ secrets.DOCKER_REGISTRY_HOST }}/harrel-site:latest
 
   deploy:
     runs-on: ubuntu-latest
     needs:
-      - generate-image-tag
       - build-docker
     steps:
       - name: Deploy
@@ -87,5 +89,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /home/harrel/harrel-site
-            sudo ./deploy.sh ${{ needs.generate-image-tag.outputs.image-tag }}
+            sudo docker compose -f /home/harrel/harrel-site/docker-compose.yml down
+            sudo docker compose -f /home/harrel/harrel-site/docker-compose.yml pull
+            sudo docker compose -f /home/harrel/harrel-site/docker-compose.yml up -d
