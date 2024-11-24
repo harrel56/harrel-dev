@@ -89,6 +89,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            sudo docker compose -f /home/harrel/harrel-site/docker-compose.yml down
-            sudo docker compose -f /home/harrel/harrel-site/docker-compose.yml pull
-            sudo docker compose -f /home/harrel/harrel-site/docker-compose.yml up -d
+            cd /home/harrel/harrel-site
+            sudo ./deploy.sh ${{ needs.generate-image-tag.outputs.image-tag }}
