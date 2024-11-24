@@ -14,7 +14,7 @@ public class VersionHandler implements Handler {
 
     public VersionHandler() {
         Attributes attributes = getManifestAttributes();
-        String imageVersion = Optional.ofNullable(attributes.getValue("Image-Version"))
+        String imageVersion = Optional.ofNullable(System.getenv("BUILD_VERSION"))
                 .orElse("unknown");
         String jsonSchemaVersion = Optional.ofNullable(attributes.getValue("Json-Schema-Version"))
                 .orElse("unknown");
