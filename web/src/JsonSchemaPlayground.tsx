@@ -109,8 +109,7 @@ const JsonSchemaPlayground = () => {
     <>
       <h1>JSON Schema</h1>
       <p>
-        This validator is implemented in Java and
-        supports <i>draft2020-12</i>, <i>draft2019-09</i> and <i>draft07</i> specification version.
+        This validator is implemented in Java and supports all modern specification versions.
         Its source code can be found <a href='https://github.com/harrel56/json-schema'>here</a> and it's also accessible
         on <a href='https://mvnrepository.com/artifact/dev.harrel/json-schema'>Maven Central</a> (version in
         use: <b><i>{jsonSchemaVersion}</i></b>).
@@ -118,11 +117,16 @@ const JsonSchemaPlayground = () => {
         href='https://bowtie.report/#/implementations/java-json-schema'>Bowtie</a>. If anything seems to not work right, please
         report an <a href='https://github.com/harrel56/json-schema/issues'>issue</a>, it would be really appreciated.
       </p>
-      <select value={dialectStorage} onChange={e => setDialectStorage(e.target.value)}>
-        <option value='https://json-schema.org/draft/2020-12/schema'>Draft 2020-12</option>
-        <option value='https://json-schema.org/draft/2019-09/schema'>Draft 2019-09</option>
-        <option value='http://json-schema.org/draft-07/schema#'>Draft 7</option>
-      </select>
+      <div>
+        <label htmlFor='metaSchemaSelect'>Default meta-schema</label>
+        <select id='metaSchemaSelect' value={dialectStorage} onChange={e => setDialectStorage(e.target.value)}>
+          <option value='https://json-schema.org/draft/2020-12/schema'>Draft 2020-12</option>
+          <option value='https://json-schema.org/draft/2019-09/schema'>Draft 2019-09</option>
+          <option value='http://json-schema.org/draft-07/schema#'>Draft 7</option>
+          <option value='http://json-schema.org/draft-06/schema#'>Draft 6</option>
+          <option value='http://json-schema.org/draft-04/schema#'>Draft 4</option>
+        </select>
+      </div>
       <div className='editors-wrapper'>
         <div className='editor-container'>
           <h2>Schema</h2>

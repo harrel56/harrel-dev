@@ -27,7 +27,13 @@ public class ValidationHandler implements Handler {
                     .withDefaultDialect(new Dialects.Draft2019Dialect()),
             SpecificationVersion.DRAFT7.getId(), new ValidatorFactory()
                     .withEvaluatorFactory(new FormatEvaluatorFactory())
-                    .withDefaultDialect(new Dialects.Draft7Dialect())
+                    .withDefaultDialect(new Dialects.Draft7Dialect()),
+            SpecificationVersion.DRAFT6.getId(), new ValidatorFactory()
+                    .withEvaluatorFactory(new FormatEvaluatorFactory())
+                    .withDefaultDialect(new Dialects.Draft6Dialect()),
+            SpecificationVersion.DRAFT4.getId(), new ValidatorFactory()
+                    .withEvaluatorFactory(new FormatEvaluatorFactory())
+                    .withDefaultDialect(new Dialects.Draft4Dialect())
     );
 
     @Override
