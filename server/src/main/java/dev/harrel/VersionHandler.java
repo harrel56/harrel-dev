@@ -1,15 +1,14 @@
 package dev.harrel;
 
-import io.javalin.http.Context;
-import io.javalin.http.Handler;
-import org.jetbrains.annotations.NotNull;
+import io.avaje.jex.http.Context;
+import io.avaje.jex.http.ExchangeHandler;
 
 import java.io.InputStream;
 import java.util.Optional;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
-public class VersionHandler implements Handler {
+public class VersionHandler implements ExchangeHandler {
     private final VersionResponse versionResponse;
 
     public VersionHandler() {
@@ -22,7 +21,7 @@ public class VersionHandler implements Handler {
     }
 
     @Override
-    public void handle(@NotNull Context ctx) {
+    public void handle(Context ctx) {
         ctx.json(versionResponse);
     }
 

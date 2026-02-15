@@ -25,10 +25,10 @@ dependencies {
     implementation 'org.tinylog:slf4j-tinylog:2.7.0'
     implementation 'org.tinylog:tinylog-impl:2.7.0'
 
-    implementation 'io.javalin:javalin:6.2.0'
+    implementation 'io.avaje:avaje-jex:3.4'
+    implementation 'io.avaje:avaje-jex-static-content:3.4'
     implementation "dev.harrel:json-schema:$jsonSchemaVersion"
     implementation "dev.harrel.json.providers:jackson3:$jsonSchemaVersion"
-    implementation 'tools.jackson.core:jackson-databind:3.0.4'
     implementation 'com.sanctionco.jmail:jmail:2.1.0'
 
     web project(path: ':web', configuration: 'output')

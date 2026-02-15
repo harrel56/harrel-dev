@@ -1,37 +1,41 @@
 package dev.harrel;
 
+import dev.harrel.json.providers.jackson3.Jackson3Node;
 import dev.harrel.jsonschema.*;
 import dev.harrel.jsonschema.Error;
-import io.javalin.http.Context;
-import io.javalin.http.Handler;
+import io.avaje.jex.http.Context;
+import io.avaje.jex.http.ExchangeHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
-public class ValidationHandler implements Handler {
+public class ValidationHandler implements ExchangeHandler {
     private static final Logger logger = LoggerFactory.getLogger(ValidationHandler.class);
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final JsonNodeFactory nodeFactory = new Jackson3Node.Factory();
     private final ValidatorFactory defaultValidatorFactory = new ValidatorFactory()
+            .withJsonNodeFactory(nodeFactory)
             .withEvaluatorFactory(new FormatEvaluatorFactory());
     private final Map<String, ValidatorFactory> validatorFactories = Map.of(
             SpecificationVersion.DRAFT2020_12.getId(), defaultValidatorFactory,
             SpecificationVersion.DRAFT2019_09.getId(), new ValidatorFactory()
+                    .withJsonNodeFactory(nodeFactory)
                     .withEvaluatorFactory(new FormatEvaluatorFactory())
                     .withDefaultDialect(new Dialects.Draft2019Dialect()),
             SpecificationVersion.DRAFT7.getId(), new ValidatorFactory()
+                    .withJsonNodeFactory(nodeFactory)
                     .withEvaluatorFactory(new FormatEvaluatorFactory())
                     .withDefaultDialect(new Dialects.Draft7Dialect()),
             SpecificationVersion.DRAFT6.getId(), new ValidatorFactory()
+                    .withJsonNodeFactory(nodeFactory)
                     .withEvaluatorFactory(new FormatEvaluatorFactory())
                     .withDefaultDialect(new Dialects.Draft6Dialect()),
             SpecificationVersion.DRAFT4.getId(), new ValidatorFactory()
+                    .withJsonNodeFactory(nodeFactory)
                     .withEvaluatorFactory(new FormatEvaluatorFactory())
                     .withDefaultDialect(new Dialects.Draft4Dialect())
     );
@@ -41,7 +45,7 @@ public class ValidationHandler implements Handler {
         Instant startTime = Instant.now();
         String body = ctx.body();
         logger.info("Validation request: {}", body);
-        JsonNode jsonNode = mapper.readTree(body);
+        Map<String, JsonNode> jsonNode = nodeFactory.create(body).asObject();
         var validatorFactory = validatorFactories.getOrDefault(jsonNode.get("dialect").asString(), defaultValidatorFactory);
         Response response;
         try {
@@ -54,8 +58,8 @@ public class ValidationHandler implements Handler {
             response = new Response(false, List.of(), e.getMessage());
             ctx.status(400);
         }
-        String responseJson = mapper.writeValueAsString(response);
-        ctx.result(responseJson);
+        String responseJson = ctx.jsonService().toJsonString(response);
+        ctx.write(responseJson);
         logger.info("Validation result: {}ms {}", Duration.between(startTime, Instant.now()).toMillis(), responseJson);
     }
 }
