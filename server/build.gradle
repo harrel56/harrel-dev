@@ -25,6 +25,7 @@ dependencies {
     implementation 'org.tinylog:slf4j-tinylog:2.7.0'
     implementation 'org.tinylog:tinylog-impl:2.7.0'
 
+    implementation 'io.avaje:avaje-applog-slf4j:1.2'
     implementation 'io.avaje:avaje-jex:3.4'
     implementation 'io.avaje:avaje-jex-static-content:3.4'
     implementation "dev.harrel:json-schema:$jsonSchemaVersion"
