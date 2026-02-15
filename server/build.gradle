@@ -30,6 +30,7 @@ dependencies {
     implementation 'io.avaje:avaje-jex-static-content:3.4'
     implementation "dev.harrel:json-schema:$jsonSchemaVersion"
     implementation "dev.harrel.json.providers:jackson3:$jsonSchemaVersion"
+    implementation "tools.jackson.core:jackson-databind:3.0.2"
     implementation 'com.sanctionco.jmail:jmail:2.1.0'
 
     web project(path: ':web', configuration: 'output')
