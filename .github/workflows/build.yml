@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 23
+          java-version: 25
 
       - name: Setup Bun.sh
         uses: oven-sh/setup-bun@v1
@@ -78,7 +78,7 @@ jobs:
       - build-docker
     steps:
       - name: Deploy
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
