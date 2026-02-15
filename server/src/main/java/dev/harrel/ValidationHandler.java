@@ -1,13 +1,13 @@
 package dev.harrel;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.harrel.jsonschema.Error;
 import dev.harrel.jsonschema.*;
+import dev.harrel.jsonschema.Error;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -37,12 +37,12 @@ public class ValidationHandler implements Handler {
     );
 
     @Override
-    public void handle(Context ctx) throws Exception {
+    public void handle(Context ctx) {
         Instant startTime = Instant.now();
         String body = ctx.body();
         logger.info("Validation request: {}", body);
         JsonNode jsonNode = mapper.readTree(body);
-        var validatorFactory = validatorFactories.getOrDefault(jsonNode.get("dialect").asText(), defaultValidatorFactory);
+        var validatorFactory = validatorFactories.getOrDefault(jsonNode.get("dialect").asString(), defaultValidatorFactory);
         Response response;
         try {
             Validator.Result result = validatorFactory.validate(jsonNode.get("schema"), jsonNode.get("instance"));
