@@ -15,6 +15,10 @@ public class App {
                 StaticContent.ofClassPath("/web/assets")
                         .route("/assets")
                         .preCompress()
+                        .putMimeTypeMapping("js", "application/javascript")
+                        .putMimeTypeMapping("css", "text/css")
+                        .putMimeTypeMapping("png", "image/png")
+                        .putMimeTypeMapping("ico", "image/x-icon")
                         .putResponseHeader("Cache-Control", "max-age=86400")
                         .build();
         StaticContent robots =
