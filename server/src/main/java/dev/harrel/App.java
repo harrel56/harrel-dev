@@ -6,20 +6,7 @@ import io.avaje.jex.staticcontent.StaticContent;
 
 public class App {
 
-    public static void main(String[] args) {
-//        Consumer<JavalinConfig> configConsumer = config -> {
-//            config.spaRoot.addFile("/", "/web/index.html");
-//            config.staticFiles.add(staticFiles -> {
-//                staticFiles.directory = "/web/assets";
-//                staticFiles.hostedPath = "/assets";
-//                staticFiles.precompress = true;
-//                staticFiles.headers = Map.of("Cache-Control", "max-age=86400");
-//            });
-//            config.staticFiles.add(staticFiles -> {
-//                staticFiles.directory = "/robots";
-//                staticFiles.hostedPath = "/";
-//            });
-//        };
+    static void main() {
         StaticContent webRoot =
                 StaticContent.ofClassPath("/web/index.html")
                         .route("/*")
