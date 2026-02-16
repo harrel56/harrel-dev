@@ -12,24 +12,22 @@ public class App {
                         .route("/*")
                         .build();
         StaticContent webBundle =
-                StaticContent.ofClassPath("/web/assets")
-                        .route("/assets")
+                StaticContent.ofClassPath("/web")
+                        .route("/*")
+                        .directoryIndex("files.index")
                         .preCompress()
-                        .putMimeTypeMapping("js", "application/javascript")
-                        .putMimeTypeMapping("css", "text/css")
-                        .putMimeTypeMapping("png", "image/png")
-                        .putMimeTypeMapping("ico", "image/x-icon")
                         .putResponseHeader("Cache-Control", "max-age=86400")
                         .build();
         StaticContent robots =
                 StaticContent.ofClassPath("/robots/robots.txt")
                         .route("/robots.txt")
+                        .putMimeTypeMapping("txt", "application/javascript")
                         .build();
 
         Jex.create()
-                .plugin(webRoot)
-                .plugin(webBundle)
                 .plugin(robots)
+                .plugin(webBundle)
+                .plugin(webRoot)
                 .jsonService(new Jackson3JsonService())
                 .get("/api/version", new VersionHandler())
                 .post("/api/json-validate", new ValidationHandler())
