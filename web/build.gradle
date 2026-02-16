@@ -17,18 +17,6 @@ tasks.register('build', Exec) {
         exclude 'dist', 'node_modules', 'bun.lockb'
     }.findAll())
     outputs.dir('dist')
-
-    // create index file
-    doLast {
-        def fileNames = []
-        def distPath = file('dist').toPath()
-        fileTree('dist').each {
-            fileNames.add distPath.relativize(it.toPath())
-        }
-        print fileNames
-        def indexFile = distPath.resolve('files.index').toFile()
-        indexFile.text = fileNames.join(System.lineSeparator())
-    }
 }
 
 artifacts {
