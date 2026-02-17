@@ -1,0 +1,16 @@
+name: test-ssh.yml
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: harrel56/ssh-action@420fc3afb77d54db045413edada20c8c2847b4ff
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          user: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          script: |
+            ls
