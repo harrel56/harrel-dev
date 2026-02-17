@@ -6,7 +6,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: harrel56/ssh-action@420fc3afb77d54db045413edada20c8c2847b4ff
+      - uses: harrel56/ssh-action@fc808008acc50b40287e28013e6ac41ee2619301
         with:
           host: ${{ secrets.SSH_HOST }}
           user: ${{ secrets.SSH_USERNAME }}
