@@ -14,8 +14,9 @@ public class App {
         StaticContent webBundle =
                 StaticContent.ofClassPath("/web")
                         .route("/*")
-                        .directoryIndex("index.html")
+                        .spaRoot("index.html")
                         .putResponseHeader("Cache-Control", "max-age=86400")
+                        .preCompress()
                         .build();
 
         Jex.create()
