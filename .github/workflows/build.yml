@@ -77,12 +77,12 @@ jobs:
     needs:
       - build-docker
     steps:
-      - name: Deploy
-        uses: appleboy/ssh-action@v1.2.5
+      - uses: harrel56/ssh-action@fc808008acc50b40287e28013e6ac41ee2619301
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
+          user: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
           script: |
             sudo docker compose -f /home/harrel/apps/docker-compose.yml down harrel-dev
             sudo docker compose -f /home/harrel/apps/docker-compose.yml pull harrel-dev
